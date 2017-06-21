@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.devlin_n.yinyangplayer.player.YinYangPlayer
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/player"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"/>
