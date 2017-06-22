@@ -95,5 +95,23 @@
             android:layout_height="wrap_content"
             android:onClick="huNanTV"
             android:text="湖南卫视"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="beiJingTV"
+            android:text="北京卫视"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="shenZhenTV"
+            android:text="深圳卫视"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="guangDongTV"
+            android:text="广东卫视"/>
     </LinearLayout>
 </ScrollView>

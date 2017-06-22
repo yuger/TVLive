@@ -1,9 +1,10 @@
-package com.wxy.player.tv;
+package com.wxy.player;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -11,30 +12,35 @@ import com.bumptech.glide.Glide;
 import com.devlin_n.floatWindowPermission.FloatWindowManager;
 import com.devlin_n.yinyangplayer.controller.StandardVideoController;
 import com.devlin_n.yinyangplayer.player.YinYangPlayer;
-import com.wxy.player.R;
 
-public class BaseTVActivity extends AppCompatActivity {
+/**
+ * Created by wang on 2017/6/22.
+ */
+
+public class TVActivity extends AppCompatActivity {
     private YinYangPlayer yinYangPlayer;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_tv);
-
+        setContentView(R.layout.activity_tv);
         yinYangPlayer = (YinYangPlayer) findViewById(R.id.player);
+
+        String url = getIntent().getStringExtra("url");
+        String name = getIntent().getStringExtra("name");
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(name);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         StandardVideoController controller = new StandardVideoController(this);
         controller.setLive(true);
-        Glide.with(this).load("http://7xqblc.com1.z0.glb.clouddn.com/tvlive.jpg").asBitmap().animate(R.anim.anim_alpha_in).placeholder(android.R.color.black).into(controller.getThumb());
+        Glide.with(this).load("http://7xqblc.com1.z0.glb.clouddn.com/tvlive.jpg").asBitmap()
+                .animate(R.anim.anim_alpha_in).placeholder(android.R.color.black).into(controller.getThumb());
         yinYangPlayer.autoRotate()
 //                .useAndroidMediaPlayer()
-                .setUrl(URL)
+                .setUrl(url)
                 .setVideoController(controller);
-    }
-
-    private String URL;
-
-    public void getURL(String url) {
-        this.URL = url;
     }
 
     @Override
@@ -64,7 +70,6 @@ public class BaseTVActivity extends AppCompatActivity {
         yinYangPlayer.release();
     }
 
-
     @Override
     public void onBackPressed() {
         if (!yinYangPlayer.onBackPressed()) {
@@ -78,7 +83,7 @@ public class BaseTVActivity extends AppCompatActivity {
             if (FloatWindowManager.getInstance().checkPermission(this)) {
                 yinYangPlayer.startFloatWindow();
             } else {
-                Toast.makeText(BaseTVActivity.this, "权限授予失败，无法开启悬浮窗", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TVActivity.this, "权限授予失败，无法开启悬浮窗", Toast.LENGTH_SHORT).show();
             }
         }
     }
